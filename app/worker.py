@@ -22,7 +22,6 @@ def generate_report(report_id: uuid.UUID):
     """
     async def update():
         async with get_session() as session:
-            time.sleep(10)
             repo = ReportRepository(session)
             response = await repo.update_report_url(report_id, 'https://www.google.com')
             if response.status != "COMPLETED":
