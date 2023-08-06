@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "store-monitor"
+version = "0.0.1"
+description = "An application which tracks and generates reports for stores about there availability"
+authors = ["y"]
+readme = "README.md"
+packages = [{include = "store_monitor"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.101.0"
+uvicorn = "^0.23.2"
+sqlmodel = "^0.0.8"
+pandas = "^2.0.3"
+asyncpg = "^0.28.0"
+asyncio = "^3.4.3"
+psycopg2-binary = "^2.9.7"
+greenlet = "^2.0.2"
+pydotenv = "^0.0.7"
+python-dotenv = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

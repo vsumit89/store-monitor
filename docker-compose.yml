@@ -1,5 +1,8 @@
 version: "3.1"
 services:
+  ##########################################################################
+  ######                     DATABASE SERVICE                        #######
+  ##########################################################################
   postgres:
     image: postgres:15.0
     environment:
@@ -12,6 +15,55 @@ services:
       - ./volumes/database:/var/lib/postgresql/data
     networks:
       - store_monitor
+
+  ##########################################################################
+  ######                     TASK SERVICE                        #######
+  ##########################################################################
+  redis:
+    image: redis:6.2.6
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass redis
+    volumes:
+      - ./volumes/redis:/data
+    networks:
+      - store_monitor
+
+  # celery:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - .:/app
+  #   command: celery -A app.worker worker -l info
+  #   depends_on:
+  #     - redis
+  #   networks:
+  #     - hunting
+
+  ##########################################################################
+  ######                     APP SERVICE                        #######
+  #########################################################################
+  # store-monitor-api:
+  #   ports:
+  #     - 8000:8000
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   command: >
+  #     /bin/sh -c "
+  #     poetry run uvicorn app.main:app --reload --host 0.0.0.0;
+  #     "
+  #   volumes:
+  #     - .:/app
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - redis
+  #   networks:
+  #     - store_monitor
 
 networks:
   store_monitor:
