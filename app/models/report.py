@@ -1,5 +1,16 @@
 from sqlmodel import SQLModel, Field
 import uuid
+from enum import Enum
+
+class ReportStatus(str, Enum):
+  """
+    Status enum represents the status of a store
+    Attributes:
+      active - string representing the store is active
+      inactive - string representing the store is inactive
+  """
+  RUNNING = "RUNNING"
+  COMPLETED = "COMPLETED"
 
 class Report(SQLModel, table=True):
   """
@@ -11,5 +22,5 @@ class Report(SQLModel, table=True):
   """
   __tablename__ = "reports"
   id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-  status: str = Field(default="RUNNING")
+  status: ReportStatus = Field(default=ReportStatus.RUNNING)
   url: str | None = Field(default=None)

@@ -13,6 +13,7 @@ services:
       - "5432:5432"
     volumes:
       - ./volumes/database:/var/lib/postgresql/data
+      - ./migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - store_monitor
 
@@ -29,41 +30,41 @@ services:
     networks:
       - store_monitor
 
-  # celery:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.dev
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - .:/app
-  #   command: celery -A app.worker worker -l info
-  #   depends_on:
-  #     - redis
-  #   networks:
-  #     - hunting
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: poetry run celery -A app.tasks worker -l info
+    depends_on:
+      - redis
+    networks:
+      - store_monitor
 
-  ##########################################################################
-  ######                     APP SERVICE                        #######
   #########################################################################
-  # store-monitor-api:
-  #   ports:
-  #     - 8000:8000
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.dev
-  #   command: >
-  #     /bin/sh -c "
-  #     poetry run uvicorn app.main:app --reload --host 0.0.0.0;
-  #     "
-  #   volumes:
-  #     - .:/app
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - redis
-  #   networks:
-  #     - store_monitor
+  #####                     APP SERVICE                        #######
+  ########################################################################
+  store-monitor-api:
+    ports:
+      - 8000:8000
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: >
+      /bin/sh -c "
+      poetry run uvicorn app.main:app --reload --host 0.0.0.0;
+      "
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    networks:
+      - store_monitor
 
 networks:
   store_monitor:
