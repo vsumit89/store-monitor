@@ -19,6 +19,7 @@ async def trigger_report(response: Response, report_service: ReportService = Dep
       report_id=reportID
       )
     except Exception as e:
+      print(str(e))
       responseBody = CreateReportResponse(
       message="Unable to create report. Please try again later.",
       report_id=None
@@ -37,7 +38,7 @@ async def get_report(response: Response, requestBody: GetReportRequestSchema, re
         report=report
       )
     except Exception as e:
-      
+      print(str(e))
       response.status_code = 500
       responseBody = GetReportResponse(
         message=str(e),
@@ -46,3 +47,21 @@ async def get_report(response: Response, requestBody: GetReportRequestSchema, re
 
     return responseBody.dict(exclude_none=True)
 
+
+# @report_router.post("/update_report")
+# async def update_report(response: Response, requestBody: GetReportRequestSchema, report_service: ReportService = Depends()):
+#     try:
+#       report = await report_service.update_report(requestBody.report_id, "https://www.google.com")
+#       responseBody = GetReportResponse(
+#         message="successfully updated report",
+#         report=report
+#       )
+#     except Exception as e:
+#       print(str(e))
+#       response.status_code = 500
+#       responseBody = GetReportResponse(
+#         message=str(e),
+#         report=None
+#       )
+
+#     return responseBody.dict(exclude_none=True)

@@ -23,11 +23,9 @@ class Settings(BaseSettings):
   DB_MAX_OVERFLOW: int = 20
   DB_POOL_RECYCLE: int = 3600
 
-  # redis config 
-  REDIS_HOST: str = "localhost"
-  REDIS_PORT: str = "6379"
-  REDIS_DB: int = 0
-  REDIS_PASSWORD: str = "redis"
+  # celery config 
+  CELERY_BROKER_URL: str = "redis://:redis@redis:6379/0"
+
 
   # taking env file
   class Config:

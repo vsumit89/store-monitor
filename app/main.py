@@ -25,11 +25,11 @@ async def create_db():
   await init_db()
 
 
-@app.on_event("startup")
-async def startup_event():
-    logger.info("Creating a report table...")
-    await create_db()
-    logger.info("Report table created!")
+# @app.on_event("startup")
+# async def startup_event():
+#     logger.info("Starting up...")
+#     await create_db()
+#     logger.info("Startup completed")
 
 
 @app.middleware("http")

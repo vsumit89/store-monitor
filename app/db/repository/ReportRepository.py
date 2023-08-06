@@ -2,8 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.postgres import get_session
 
 from fastapi import Depends
-from app.models.report import Report
-
+from app.models.report import Report, ReportStatus
 class ReportRepository:
   db : AsyncSession
   def __init__(
@@ -25,4 +24,19 @@ class ReportRepository:
       if report is None:
         raise Exception(f"Report not found with id: {report_id}")
       return report
+    
+
+  async def update_report_url(self, report_id, url) -> Report:
+    print('update url iscalled', report_id, url)
+    async with self.db as session:
+      report = await session.get(Report, report_id)
+      if report is None:
+        raise Exception(f"Report not found with id: {report_id}")
+      report.url = url
+      report.status = ReportStatus.COMPLETED
+      
+      await session.commit()
+      await session.refresh(report)
+      return report
+
   
