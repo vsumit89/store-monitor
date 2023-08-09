@@ -1,10 +1,8 @@
-# Makefile for store monitoring
-
-# Load environment variables from .env file
-include .env
-
-# Targets
-.PHONY: create_tables
-
-create_tables:
-	cd scripts && ./create_tables.sh
+docker-build:
+	docker compose build
+docker-build-and-run:
+	docker compose up --build
+docker-down:
+	docker compose down
+docker-up:
+	docker compose up

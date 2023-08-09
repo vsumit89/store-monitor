@@ -38,7 +38,7 @@ async def trigger_report(response: Response, report_service: ReportService = Dep
     return responseBody
 
 
-@report_router.post("/get_report")
+@report_router.post("/get_report", response_model=GetReportResponse)
 async def get_report(
     response: Response,
     requestBody: GetReportRequestSchema,
@@ -64,5 +64,4 @@ async def get_report(
         response.status_code = 500
         responseBody = GetReportResponse(message=str(e), report=None)
 
-    return responseBody.dict(exclude_none=True)
-
+    return responseBody

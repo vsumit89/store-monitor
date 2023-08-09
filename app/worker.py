@@ -79,7 +79,7 @@ def generate_report(report_id: uuid.UUID):
             store_status_repository = StoreStatusRepository(session)
             store_ids = await store_status_repository.get_store_ids()
             master_data = []
-            for store_id in store_ids[:10]:
+            for store_id in store_ids:
                 store_timezone_repository = StoreTimezoneRepository(session)
                 store_timezone = await store_timezone_repository.get_store_timezone(
                     store_id

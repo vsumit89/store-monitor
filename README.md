@@ -9,7 +9,6 @@ The Store Monitor API is a FastAPI-based API that generates reports on store upt
 ## Table of Contents
 
 - [Overview](#overview)
-- [Features](#features)
 - [Directory Structure](#directory-structure)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
@@ -19,11 +18,6 @@ The Store Monitor API is a FastAPI-based API that generates reports on store upt
 ## Overview
 
 The Store Monitor API provides a way to calculate and generate reports for store uptime and downtime.
-
-## Features
-
-- Calculates store uptime and downtime.
-- Generates reports for the last 1 hour, last 1 day, and last 1 week
 
 ## Directory Structure
 
@@ -92,3 +86,10 @@ docker exec -it store-monitor-api python pipeline.py
 - `POST /get_report`: Get a report for the last 1 hour, last 1 day, or last 1 week for all stores
 
 Refer to the API documentation for detailed information about request and response structures.
+
+## Some useful commands
+
+- `make docker-build`: Build the services in docker-compose
+- `make docker-build-and-run`: Build and run the services in docker-compose
+- `make docker-up`: Start the services in docker-compose
+- `make docker-down`: Stop the services in docker-compose
