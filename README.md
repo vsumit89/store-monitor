@@ -2,8 +2,8 @@
 
 The Store Monitor API is a FastAPI-based API that generates reports on store uptime and downtime. It calculates uptime and downtime for the last 1 hour, last 1 day, and last 1 week.
 
-
 ## Architecture Diagram
+
 ![Architecture Diagram](./images/store-monitor.drawio.svg)
 
 ## Table of Contents
@@ -29,22 +29,34 @@ The Store Monitor API provides a way to calculate and generate reports for store
 
 The project directory is structured as follows:
 
-```
-- app
-- migrations
-- .dockerignore
-- .env.example
-- .gitignore
-- Dockerfile.dev
-- Makefile
-- README.md
-- docker-compose.yml
-- pipeline.py
-- poetry.lock
-- pyproject.toml
-- report.csv
-- script.py
-```
+**app**: This is where the main application code resides. It's divided into subdirectories based on functionality for better organization.
+
+**app/db**: Contains database-related code and configurations.
+
+**app/models**: Defines data models and database schema.
+routes: Houses API route definitions.
+
+**app/schema**: Contains Pydantic schema definitions for request and response validation.
+
+**app/service**: Holds the business logic and service layer implementations.
+
+**app/utils**: Contains utility modules and helper functions used throughout the application.
+
+**app/main.py**: The entry point of the FastAPI application.
+
+**images**: Store system architecture diagrams and other relevant images here.
+
+**migrations**: Contains initial SQL files used for setting up the initial database tables.
+
+**.env.example**: An example file that lists the environment variables needed for the application. Developers can copy this file and customize it for their local environment.
+
+**docker-compose.yml**: Defines the configuration for Docker Compose to set up various services required for the application.
+
+**Dockerfile.dev**: Dockerfile for creating a development environment container.
+
+**Makefile**: Contains useful commands for development tasks, making common tasks easily executable.
+
+**pipeline.py**: Script to load data from CSV files into DataFrames.
 
 ## Steps to run the project
 

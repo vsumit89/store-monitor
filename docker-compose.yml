@@ -67,5 +67,38 @@ services:
     networks:
       - store_monitor
 
+  ########################################################################
+  ####                     BUCKET SERVICE                        #######
+  #######################################################################
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: password
+    volumes:
+      - ./volumes/minio/data:/export
+      - ./volumes/minio/config:/root/.minio
+    command: server --console-address :9001 /export
+    networks:
+      - store_monitor
+
+  createbuckets:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      apk add --no-cache bash;
+      /usr/bin/mc config host add myminio http://minio:9000 minio password;
+      /usr/bin/mc mb myminio/storemonitor;
+      /usr/bin/mc anonymous set public myminio/storemonitor;
+      exit 0;
+      "
+    networks:
+      - store_monitor
+
 networks:
   store_monitor:
