@@ -29,38 +29,34 @@ The Store Monitor API provides a way to calculate and generate reports for store
 
 The project directory is structured as follows:
 
-app/                # Main application code
-│
-├── db/              # Database-related code and configuration
-│
-├── models/          # Data models and database schema definitions
-│
-├── routes/          # API route definitions
-│
-├── schema/          # Pydantic schema definitions for request and response validation
-│
-├── service/         # Business logic and service layer
-│
-├── utils/           # Utility modules and helper functions
-│
-├── main.py           # Main FastAPI application instance
-│
-├── worker.py         # Celery task script for background processing
-│
-images/             # System architecture diagrams and images
-│
-migrations/         # Initial SQL files for setting up initial database tables
-│
-.env.example         # Example environment variables file
-│
-docker-compose.yml  # Docker Compose configuration for setting up services
-│
-Dockerfile.dev      # Dockerfile for development environment
-│
-MakeFile            # Makefile with useful commands for development
-│
-pipeline.py         # Script to load data from CSV to DataFrame
+app: This is where the main application code resides. It's divided into subdirectories based on functionality for better organization.
 
+   db: Contains database-related code and configurations.
+
+   models: Defines data models and database schema.
+   routes: Houses API route definitions.
+
+   schema: Contains Pydantic schema definitions for request and response validation.
+
+   service: Holds the business logic and service layer implementations.
+
+   utils: Contains utility modules and helper functions used throughout the application.
+
+   main.py: The entry point of the FastAPI application.
+   
+   images: Store system architecture diagrams and other relevant images here.
+
+migrations: Contains initial SQL files used for setting up the initial database tables.
+
+.env.example: An example file that lists the environment variables needed for the application. Developers can copy this file and customize it for their local environment.
+
+docker-compose.yml: Defines the configuration for Docker Compose to set up various services required for the application.
+
+Dockerfile.dev: Dockerfile for creating a development environment container.
+
+Makefile: Contains useful commands for development tasks, making common tasks easily executable.
+
+pipeline.py: Script to load data from CSV files into DataFrames.
 
 ## Steps to run the project
 
