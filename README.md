@@ -19,9 +19,7 @@ The Store Monitor API provides a way to calculate and generate reports for store
 ## Features
 
 - Calculates store uptime and downtime.
-- Generates reports for the last 1 hour, last 1 day, and last 1 week.
-- Utilizes the FastAPI framework for efficient API handling.
-- Employs Celery for asynchronous report generation.
+- Generates reports for the last 1 hour, last 1 day, and last 1 week
 
 ## Directory Structure
 
