@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Request
 from app.routes.v1.report_router import report_router
 import time
-from app.db.migration import init_db
+# from app.db.migration import init_db
 import logging
+from fastapi.middleware.cors import CORSMiddleware
+from app.utils.config import get_settings
 
 
 # set the logging basic config
@@ -15,24 +17,22 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-app = FastAPI(
+fastapiApp = FastAPI(
     docs_url="/api/docs",
     title = "Store Monitoring API",
     prefix="/api/v1"
 );
 
-async def create_db():
-  await init_db()
+settings = get_settings()
 
+fastapiApp.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.CORS_ORIGINS,
+    allow_methods=settings.CORS_METHODS,
+    allow_headers=settings.CORS_HEADERS,
+)
 
-# @app.on_event("startup")
-# async def startup_event():
-#     logger.info("Starting up...")
-#     await create_db()
-#     logger.info("Startup completed")
-
-
-@app.middleware("http")
+@fastapiApp.middleware("http")
 async def add_process_time_header(request: Request, call_next):
     start_time = time.time()
     response = await call_next(request)
@@ -41,10 +41,18 @@ async def add_process_time_header(request: Request, call_next):
     return response
 
 
-
-# get_session()
-app.include_router(report_router, tags=["report"])
+fastapiApp.include_router(report_router, tags=["report"])
 
 
+print("fast api application wow")
+# async def create_db():
+#   await init_db()
+
+
+# @app.on_event("startup")
+# async def startup_event():
+#     logger.info("Starting up...")
+#     await create_db()
+#     logger.info("Startup completed")
 
 

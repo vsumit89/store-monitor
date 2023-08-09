@@ -1,4 +1,5 @@
-version: "3.1"
+version: "3.7"
+
 services:
   ##########################################################################
   ######                     DATABASE SERVICE                        #######
@@ -38,15 +39,15 @@ services:
       - .env
     volumes:
       - .:/app
-    command: poetry run celery -A app.tasks worker -l info
+    command: poetry run celery -A app.worker worker -l info
     depends_on:
       - redis
     networks:
       - store_monitor
 
-  #########################################################################
-  #####                     APP SERVICE                        #######
   ########################################################################
+  ####                     APP SERVICE                        #######
+  #######################################################################
   store-monitor-api:
     ports:
       - 8000:8000
@@ -55,7 +56,7 @@ services:
       dockerfile: Dockerfile.dev
     command: >
       /bin/sh -c "
-      poetry run uvicorn app.main:app --reload --host 0.0.0.0;
+      poetry run uvicorn app.main:fastapiApp --reload --host 0.0.0.0;
       "
     volumes:
       - .:/app
@@ -68,4 +69,3 @@ services:
 
 networks:
   store_monitor:
-    driver: bridge
