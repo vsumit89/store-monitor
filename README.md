@@ -72,7 +72,7 @@ docker-compose up --build
 3. Once the container is running, run the following command to ingest data into the database
 
 ```bash
-docker exec -it store-monitor-api python pipeline.py
+poetry run python pipeline.py
 ```
 
 ## Usage
