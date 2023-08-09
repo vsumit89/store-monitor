@@ -2,8 +2,8 @@
 
 The Store Monitor API is a FastAPI-based API that generates reports on store uptime and downtime. It calculates uptime and downtime for the last 1 hour, last 1 day, and last 1 week.
 
-
 ## Architecture Diagram
+
 ![Architecture Diagram](./images/store-monitor.drawio.svg)
 
 ## Table of Contents
@@ -29,34 +29,34 @@ The Store Monitor API provides a way to calculate and generate reports for store
 
 The project directory is structured as follows:
 
-app: This is where the main application code resides. It's divided into subdirectories based on functionality for better organization.
+**app**: This is where the main application code resides. It's divided into subdirectories based on functionality for better organization.
 
-   db: Contains database-related code and configurations.
+**app/db**: Contains database-related code and configurations.
 
-   models: Defines data models and database schema.
-   routes: Houses API route definitions.
+**app/models**: Defines data models and database schema.
+routes: Houses API route definitions.
 
-   schema: Contains Pydantic schema definitions for request and response validation.
+**app/schema**: Contains Pydantic schema definitions for request and response validation.
 
-   service: Holds the business logic and service layer implementations.
+**app/service**: Holds the business logic and service layer implementations.
 
-   utils: Contains utility modules and helper functions used throughout the application.
+**app/utils**: Contains utility modules and helper functions used throughout the application.
 
-   main.py: The entry point of the FastAPI application.
-   
-   images: Store system architecture diagrams and other relevant images here.
+**app/main.py**: The entry point of the FastAPI application.
 
-migrations: Contains initial SQL files used for setting up the initial database tables.
+**images**: Store system architecture diagrams and other relevant images here.
 
-.env.example: An example file that lists the environment variables needed for the application. Developers can copy this file and customize it for their local environment.
+**migrations**: Contains initial SQL files used for setting up the initial database tables.
 
-docker-compose.yml: Defines the configuration for Docker Compose to set up various services required for the application.
+**.env.example**: An example file that lists the environment variables needed for the application. Developers can copy this file and customize it for their local environment.
 
-Dockerfile.dev: Dockerfile for creating a development environment container.
+**docker-compose.yml**: Defines the configuration for Docker Compose to set up various services required for the application.
 
-Makefile: Contains useful commands for development tasks, making common tasks easily executable.
+**Dockerfile.dev**: Dockerfile for creating a development environment container.
 
-pipeline.py: Script to load data from CSV files into DataFrames.
+**Makefile**: Contains useful commands for development tasks, making common tasks easily executable.
+
+**pipeline.py**: Script to load data from CSV files into DataFrames.
 
 ## Steps to run the project
 
