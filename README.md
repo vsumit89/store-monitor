@@ -42,7 +42,7 @@ The project directory is structured as follows:
 - script.py
 ```
 
-## Installation
+## Steps to run the project
 
 1. Clone this repository to your local machine.
 2. Create a `.env` file based on `.env.example` and fill in the required configuration.
@@ -50,6 +50,19 @@ The project directory is structured as follows:
 
 ```bash
 docker-compose up --build
+```
+
+## Steps to ingest data
+
+1. Create a `datastore` folder in the root directory of the project.
+2. Inside that create
+   - store_business_hours.csv
+   - store_status.csv
+   - store_timezone.csv
+3. Once the container is running, run the following command to ingest data into the database
+
+```bash
+docker exec -it store-monitor-api python pipeline.py
 ```
 
 ## Usage
