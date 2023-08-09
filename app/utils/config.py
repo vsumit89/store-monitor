@@ -39,6 +39,14 @@ class Settings(BaseSettings):
     CORS_METHODS: List[str] = ["*"]
     CORS_HEADERS: List[str] = ["*"]
 
+    # minio config
+    MINIO_ENDPOINT: str = "minio:9000"
+    MINIO_DOWNLOAD_ENDPOINT: str = "http://localhost:9000"
+    MINIO_ACCESS_KEY: str = "ROOTUSER"
+    MINIO_SECRET_KEY: str = "PASSWORD"
+    MINIO_SECURE: bool = False
+    BUCKET_NAME: str = "storemonitor"
+
     # Load environment variables from .env file
     class Config:
         env_file = ".env"

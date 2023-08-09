@@ -12,6 +12,7 @@ import pandas as pd
 from dateutil import parser
 from app.utils.time import get_day_of_week
 import pytz
+from app.utils.minio import upload_file_to_minio
 
 # from datetime import datetime, timedelta
 
@@ -74,12 +75,11 @@ def calculate_times(time_now):
 
 async def generate_report():
     async with get_session() as session:
-
         store_status_repository = StoreStatusRepository(session)
         store_ids = await store_status_repository.get_store_ids()
 
         master_data = []
-        for store_id in store_ids[:200]:
+        for store_id in store_ids[:10]:
             store_timezone_repository = StoreTimezoneRepository(session)
             store_timezone = await store_timezone_repository.get_store_timezone(
                 store_id
@@ -143,7 +143,6 @@ async def generate_report():
                 )
             )
 
-
             downtime_report = list(
                 map(
                     lambda x: df_store_status[df_store_status["timestamp_local"] > x][
@@ -164,9 +163,12 @@ async def generate_report():
             # print(report_row)
             master_data.append(report_row)
 
-        pd.DataFrame(master_data).to_csv("report.csv", index=False)
+        csv_data = pd.DataFrame(master_data).to_csv(index=False)
+        encoded_data = csv_data.encode("utf-8")
+        upload_file_to_minio("123.csv", encoded_data, "application/csv")
+
         # Close the session
-        session.close()
+        await session.close()
 
 
 if __name__ == "__main__":

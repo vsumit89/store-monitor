@@ -12,6 +12,7 @@ from dateutil import parser
 from app.utils.time import get_day_of_week
 import pytz
 from datetime import timedelta
+from app.utils.minio import upload_file_to_minio
 
 # import time
 from app.models.report import ReportStatus
@@ -162,10 +163,19 @@ def generate_report(report_id: uuid.UUID):
                 # print(report_row)
                 master_data.append(report_row)
 
-            pd.DataFrame(master_data).to_csv("report.csv", index=False)
+            # pd.DataFrame(master_data).to_csv("report.csv", index=False)
+            csv_data = pd.DataFrame(master_data).to_csv(index=False)
+            encoded_data = csv_data.encode("utf-8")
             repo = ReportRepository(session)
-            response = await repo.update_report_url(report_id, "https://www.google.com")
-            
+
+            blob_object_name = f"{report_id}.csv"
+            uploaded_url = settings.MINIO_DOWNLOAD_ENDPOINT + blob_object_name
+
+            # Upload the file to minio
+            upload_file_to_minio(blob_object_name, encoded_data, "application/csv")
+
+            response = await repo.update_report_url(report_id, uploaded_url)
+
             if response.status != ReportStatus.COMPLETED:
                 raise Exception("Unable to update report url")
             else:
