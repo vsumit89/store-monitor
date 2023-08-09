@@ -169,7 +169,7 @@ def generate_report(report_id: uuid.UUID):
             repo = ReportRepository(session)
 
             blob_object_name = f"{report_id}.csv"
-            uploaded_url = settings.MINIO_DOWNLOAD_ENDPOINT + blob_object_name
+            uploaded_url = f"{settings.MINIO_DOWNLOAD_ENDPOINT}/{settings.BUCKET_NAME}/{blob_object_name}"
 
             # Upload the file to minio
             upload_file_to_minio(blob_object_name, encoded_data, "application/csv")

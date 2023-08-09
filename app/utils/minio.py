@@ -11,7 +11,7 @@ minio_client = Minio(
     secure=False,
 )
 
- 
+
 def upload_file_to_minio(object_name, data, content_type):
     try:
         minio_client.put_object(

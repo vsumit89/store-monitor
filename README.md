@@ -29,22 +29,38 @@ The Store Monitor API provides a way to calculate and generate reports for store
 
 The project directory is structured as follows:
 
-```
-- app
-- migrations
-- .dockerignore
-- .env.example
-- .gitignore
-- Dockerfile.dev
-- Makefile
-- README.md
-- docker-compose.yml
-- pipeline.py
-- poetry.lock
-- pyproject.toml
-- report.csv
-- script.py
-```
+app/                # Main application code
+│
+├── db/              # Database-related code and configuration
+│
+├── models/          # Data models and database schema definitions
+│
+├── routes/          # API route definitions
+│
+├── schema/          # Pydantic schema definitions for request and response validation
+│
+├── service/         # Business logic and service layer
+│
+├── utils/           # Utility modules and helper functions
+│
+├── main.py           # Main FastAPI application instance
+│
+├── worker.py         # Celery task script for background processing
+│
+images/             # System architecture diagrams and images
+│
+migrations/         # Initial SQL files for setting up initial database tables
+│
+.env.example         # Example environment variables file
+│
+docker-compose.yml  # Docker Compose configuration for setting up services
+│
+Dockerfile.dev      # Dockerfile for development environment
+│
+MakeFile            # Makefile with useful commands for development
+│
+pipeline.py         # Script to load data from CSV to DataFrame
+
 
 ## Steps to run the project
 
