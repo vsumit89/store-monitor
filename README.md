@@ -2,6 +2,10 @@
 
 The Store Monitor API is a FastAPI-based API that generates reports on store uptime and downtime. It calculates uptime and downtime for the last 1 hour, last 1 day, and last 1 week.
 
+
+## Architecture Diagram
+![Architecture Diagram](./images/store-monitor.drawio.svg)
+
 ## Table of Contents
 
 - [Overview](#overview)
