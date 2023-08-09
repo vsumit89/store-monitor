@@ -6,23 +6,23 @@ from app.models.store_timezone import StoreTimezone
 
 
 class StoreTimezoneRepository:
+    """
+    StoreTimezoneRepository handles database operations related to StoreTimezone model.
+    """
+
     db: AsyncSession
 
-    def __init__(
-        self, 
-        db: AsyncSession=Depends(get_session)) -> None:
-      self.db = db
-        
+    def __init__(self, db: AsyncSession = Depends(get_session)) -> None:
+        self.db = db
 
     async def get_store_timezone(self, store_id):
-      async with self.db as session:
-        statement = select(StoreTimezone.store_id, StoreTimezone.timezone_str).where(StoreTimezone.store_id == store_id)
-        result = await session.execute(statement)
-        data = result.first()
-        if data is None:
-          return "America/Chicago"
-        else:
-          return data[1]
-
-        
-        
+        async with self.db as session:
+            statement = select(
+                StoreTimezone.store_id, StoreTimezone.timezone_str
+            ).where(StoreTimezone.store_id == store_id)
+            result = await session.execute(statement)
+            data = result.first()
+            if data is None:
+                return "America/Chicago"
+            else:
+                return data[1]
